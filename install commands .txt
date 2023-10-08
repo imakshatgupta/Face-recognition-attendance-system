@@ -9,3 +9,6 @@ pip install numpy
 pip install pillow 
 pip install pandas
 pip install times
+
+
+ ~/OneDrive/desktop/Face-Recognition-Based-Attendance-Monitoring-System/Face Recognition Based Attendance Monitoring System
