@@ -188,7 +188,7 @@ def TakeImages():
             if cv2.waitKey(100) & 0xFF == ord('q'):
                 break
             # break if the sample number is morethan 100
-            elif sampleNum > 100:
+            elif sampleNum > 20:
                 break
         cam.release()
         cv2.destroyAllWindows()
