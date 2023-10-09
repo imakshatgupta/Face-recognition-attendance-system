@@ -361,7 +361,7 @@ window.title("Attendance System")
 window.configure(background='#2d420a')
 
 frame1 = tk.Frame(window, bg="#c79cff")
-frame1.place(relx=0.11, rely=0.17, relwidth=0.39, relheight=0.80)
+frame1.place(relx=0.05, rely=0.17, relwidth=0.39, relheight=0.80)
 
 frame2 = tk.Frame(window, bg="#c79cff")
 frame2.place(relx=0.51, rely=0.17, relwidth=0.38, relheight=0.80)
@@ -373,7 +373,7 @@ frame3 = tk.Frame(window, bg="#c4c6ce")
 frame3.place(relx=0.52, rely=0.09, relwidth=0.09, relheight=0.07)
 
 frame4 = tk.Frame(window, bg="#c4c6ce")
-frame4.place(relx=0.36, rely=0.09, relwidth=0.16, relheight=0.07)
+frame4.place(relx=0.33, rely=0.09, relwidth=0.19, relheight=0.07)
 
 datef = tk.Label(frame4, text = day+"-"+mont[month]+"-"+year+"  |  ", fg="#ff61e5",bg="#2d420a" ,width=55 ,height=1,font=('comic', 22, ' bold '))
 datef.pack(fill='both',expand=1)
