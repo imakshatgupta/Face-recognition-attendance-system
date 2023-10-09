@@ -188,8 +188,8 @@ def TakeImages():
             if cv2.waitKey(100) & 0xFF == ord('q'):
                 break
             # break if the sample number is morethan 100
-            elif sampleNum > 20:
-                break
+            elif sampleNum >= 20:
+                break 
         cam.release()
         cv2.destroyAllWindows()
         res = "Images Taken for ID : " + Id
@@ -355,7 +355,7 @@ mont={'01':'January',
 ######################################## GUI FRONT-END ###########################################
 
 window = tk.Tk()
-window.geometry("1280x720")
+window.geometry("1680x720")
 window.resizable(True,False)
 window.title("Attendance System")
 window.configure(background='#2d420a')
