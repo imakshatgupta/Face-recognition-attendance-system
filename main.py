@@ -386,7 +386,7 @@ head2 = tk.Label(frame2, text="                       For New Registrations     
 head2.grid(row=0,column=0)
 
 head1 = tk.Label(frame1, text="                       For Already Registered                       ", fg="black",bg="#00fcca" ,font=('comic', 17, ' bold ') )
-head1.place(x=0,y=0)
+head1.place(x=32,y=0)
 
 lbl = tk.Label(frame2, text="Enter ID",width=20  ,height=1  ,fg="black"  ,bg="#c79cff" ,font=('comic', 17, ' bold ') )
 lbl.place(x=80, y=55)
