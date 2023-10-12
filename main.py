@@ -355,7 +355,7 @@ mont={'01':'January',
 ######################################## GUI FRONT-END ###########################################
 
 window = tk.Tk()
-window.geometry("1680x720")
+window.geometry("1920x1080")
 window.resizable(True,False)
 window.title("Attendance System")
 window.configure(background='#2d420a')
