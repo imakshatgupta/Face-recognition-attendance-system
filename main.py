@@ -370,10 +370,10 @@ message3 = tk.Label(window, text="Face Recognition Based Attendance Monitoring S
 message3.place(x=10, y=10)
 
 frame3 = tk.Frame(window, bg="#c4c6ce")
-frame3.place(relx=0.52, rely=0.09, relwidth=0.09, relheight=0.07)
+frame3.place(relx=0.52, rely=0.07, relwidth=0.09, relheight=0.07)
 
 frame4 = tk.Frame(window, bg="#c4c6ce")
-frame4.place(relx=0.33, rely=0.09, relwidth=0.19, relheight=0.07)
+frame4.place(relx=0.33, rely=0.07, relwidth=0.19, relheight=0.07)
 
 datef = tk.Label(frame4, text = day+"-"+mont[month]+"-"+year+"  |  ", fg="black" ,width=55 ,height=1,font=('comic', 22, ' bold '))
 datef.pack(fill='both',expand=1)
