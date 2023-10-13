@@ -1,4 +1,3 @@
-############################################# IMPORTING ################################################
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox as mess
@@ -11,26 +10,28 @@ import pandas as pd
 import datetime
 import time
 
-############################################# FUNCTIONS ################################################
+
+# Functions
+
 
 def assure_path_exists(path):
     dir = os.path.dirname(path)
     if not os.path.exists(dir):
         os.makedirs(dir)
 
-##################################################################################
+##########################
 
 def tick():
     time_string = time.strftime('%H:%M:%S')
     clock.config(text=time_string)
     clock.after(200,tick)
 
-###################################################################################
+##########################
 
 def contact():
     mess._show(title='Contact us', message="Please contact us on : 'akshatgtc@gmail.com' ")
 
-###################################################################################
+#########################
 
 def check_haarcascadefile():
     exists = os.path.isfile("haarcascade_frontalface_default.xml")
@@ -40,7 +41,7 @@ def check_haarcascadefile():
         mess._show(title='Some file missing', message='Please contact us for help')
         window.destroy()
 
-###################################################################################
+##########################
 
 def save_pass():
     assure_path_exists("TrainingImageLabel/")
