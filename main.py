@@ -13,14 +13,14 @@ from twilio.rest import Client
 
 # Twilio credentials
 account_sid = 'AC167cc4162af9a5b957a43c5f22ec43ba'
-auth_token = '4128abea21077806703aa39a6de69555'
+auth_token = '1afe76215166a882e739dafa497a5aba'
 twilio_phone_number = '+13344542591'
-recipient_phone_number = '+919252908070'
+# recipient_phone_number = '+919252908070'
 
 # Initialize Twilio client
 client = Client(account_sid, auth_token)
 
-def send_sms_alert():
+def send_sms_alert(recipient_phone_number):
     message_body = "Attendance has been marked successfully!"
     try:
         message = client.messages.create(
@@ -195,6 +195,7 @@ def TakeImages():
         csvFile1.close()
     Id = (txt.get())
     name = (txt2.get())
+    mobile_number = ("+91" + txt3.get())
     if ((name.isalpha()) or (' ' in name)):
         cam = cv2.VideoCapture(0)
         harcascadePath = "haarcascade_frontalface_default.xml"
@@ -433,11 +434,11 @@ lbl2.place(x=80, y=140)
 txt2 = tk.Entry(frame2,width=32 ,fg="black",font=('comic', 15, ' bold ')  )
 txt2.place(x=30, y=173)
 
-lbl = tk.Label(frame2, text="Enter Roll No.",width=20  ,height=1  ,fg="black"  ,bg="#c79cff" ,font=('comic', 17, ' bold ') )
+lbl = tk.Label(frame2, text="Enter Mobile No.",width=20  ,height=1  ,fg="black"  ,bg="#c79cff" ,font=('comic', 17, ' bold ') )
 lbl.place(x=80, y=225)
 
-txt = tk.Entry(frame2,width=32 ,fg="black",font=('comic', 15, ' bold '))
-txt.place(x=30, y=260)
+txt3 = tk.Entry(frame2,width=32 ,fg="black",font=('comic', 15, ' bold '))
+txt3.place(x=30, y=260)
 
 message1 = tk.Label(frame2, text="1)Take Images    >>>>    2)Save Profile" ,bg="#c79cff" ,fg="black"  ,width=39 ,height=1, activebackground = "#3ffc00" ,font=('comic', 15, ' bold '))
 message1.place(x=7, y=330)
@@ -504,7 +505,7 @@ clearButton.place(x=335, y=86)
 clearButton2 = tk.Button(frame2, text="Clear", command=clear2  ,fg="black"  ,bg="#ff7221"  ,width=11 , activebackground = "white" ,font=('comic', 11, ' bold '))
 clearButton2.place(x=335, y=172)    
 clearButton3 = tk.Button(frame2, text="Clear", command=clear2  ,fg="black"  ,bg="#ff7221"  ,width=11 , activebackground = "white" ,font=('comic', 11, ' bold '))
-clearButton3.place(x=335, y=260)    
+clearButton3.place(x=335, y=258)    
 takeImg = tk.Button(frame2, text="Take Images", command=TakeImages  ,fg="white"  ,bg="#6d00fc"  ,width=34  ,height=1, activebackground = "white" ,font=('comic', 15, ' bold '))
 takeImg.place(x=30, y=400)
 trainImg = tk.Button(frame2, text="Save Profile", command=psw ,fg="white"  ,bg="#6d00fc"  ,width=34  ,height=1, activebackground = "white" ,font=('comic', 15, ' bold '))
