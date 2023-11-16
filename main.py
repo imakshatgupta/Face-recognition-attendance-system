@@ -133,14 +133,14 @@ def change_pass():
     save1.place(x=10, y=120)
     master.mainloop()
 
-#####################
+##################### 
 
 def psw():
     assure_path_exists("TrainingImageLabel/")
     exists1 = os.path.isfile("TrainingImageLabel\psd.txt")
     if exists1:
         tf = open("TrainingImageLabel\psd.txt", "r")
-        key = tf.read()
+        key = tf.read() 
     else:
         new_pas = tsd.askstring('Old Password not found', 'Please enter a new password below', show='*')
         if new_pas == None:
@@ -175,7 +175,7 @@ def clear2():
 
 def TakeImages():
     check_haarcascadefile()
-    columns = ['SERIAL NO.', '', 'ID', '', 'NAME']
+    columns = ['SERIAL NO.', '', 'ID', '', 'NAME','', 'Mobile No.']
     assure_path_exists("StudentDetails/")
     assure_path_exists("TrainingImage/")
     serial = 0
@@ -222,7 +222,7 @@ def TakeImages():
         cam.release()
         cv2.destroyAllWindows()
         res = "Images Taken for ID : " + Id
-        row = [serial, '', Id, '', name]
+        row = [serial, '', Id, '', name ,'', mobile_number]
         with open('StudentDetails\StudentDetails.csv', 'a+') as csvFile:
             writer = csv.writer(csvFile)
             writer.writerow(row)
@@ -433,14 +433,20 @@ lbl2.place(x=80, y=140)
 txt2 = tk.Entry(frame2,width=32 ,fg="black",font=('comic', 15, ' bold ')  )
 txt2.place(x=30, y=173)
 
+lbl = tk.Label(frame2, text="Enter Roll No.",width=20  ,height=1  ,fg="black"  ,bg="#c79cff" ,font=('comic', 17, ' bold ') )
+lbl.place(x=80, y=225)
+
+txt = tk.Entry(frame2,width=32 ,fg="black",font=('comic', 15, ' bold '))
+txt.place(x=30, y=260)
+
 message1 = tk.Label(frame2, text="1)Take Images    >>>>    2)Save Profile" ,bg="#c79cff" ,fg="black"  ,width=39 ,height=1, activebackground = "#3ffc00" ,font=('comic', 15, ' bold '))
-message1.place(x=7, y=230)
+message1.place(x=7, y=330)
 
 message = tk.Label(frame2, text="" ,bg="#c79cff" ,fg="black"  ,width=39,height=1, activebackground = "#3ffc00" ,font=('comic', 16, ' bold '))
-message.place(x=7, y=450)
+message.place(x=7, y=550)
 
 lbl3 = tk.Label(frame1, text="Attendance",width=20  ,fg="black"  ,bg="#c79cff"  ,height=1 ,font=('comic', 17, ' bold '))
-lbl3.place(x=100, y=115)
+lbl3.place(x=100, y=215)
 
 res=0
 exists = os.path.isfile("StudentDetails\StudentDetails.csv")
@@ -497,10 +503,12 @@ clearButton = tk.Button(frame2, text="Clear", command=clear  ,fg="black"  ,bg="#
 clearButton.place(x=335, y=86)
 clearButton2 = tk.Button(frame2, text="Clear", command=clear2  ,fg="black"  ,bg="#ff7221"  ,width=11 , activebackground = "white" ,font=('comic', 11, ' bold '))
 clearButton2.place(x=335, y=172)    
+clearButton3 = tk.Button(frame2, text="Clear", command=clear2  ,fg="black"  ,bg="#ff7221"  ,width=11 , activebackground = "white" ,font=('comic', 11, ' bold '))
+clearButton3.place(x=335, y=260)    
 takeImg = tk.Button(frame2, text="Take Images", command=TakeImages  ,fg="white"  ,bg="#6d00fc"  ,width=34  ,height=1, activebackground = "white" ,font=('comic', 15, ' bold '))
-takeImg.place(x=30, y=300)
+takeImg.place(x=30, y=400)
 trainImg = tk.Button(frame2, text="Save Profile", command=psw ,fg="white"  ,bg="#6d00fc"  ,width=34  ,height=1, activebackground = "white" ,font=('comic', 15, ' bold '))
-trainImg.place(x=30, y=380)
+trainImg.place(x=30, y=480)
 trackImg = tk.Button(frame1, text="Take Attendance", command=TrackImages  ,fg="black"  ,bg="#3ffc00"  ,width=35  ,height=1, activebackground = "white" ,font=('comic', 15, ' bold '))
 trackImg.place(x=30,y=50)
 quitWindow = tk.Button(frame1, text="Quit", command=window.destroy  ,fg="black"  ,bg="#eb4600"  ,width=35 ,height=1, activebackground = "white" ,font=('comic', 15, ' bold '))
