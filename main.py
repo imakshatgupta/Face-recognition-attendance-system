@@ -9,6 +9,34 @@ from PIL import Image
 import pandas as pd
 import datetime
 import time
+from twilio.rest import Client
+
+# Twilio credentials
+account_sid = 'AC167cc4162af9a5b957a43c5f22ec43ba'
+auth_token = '4128abea21077806703aa39a6de69555'
+twilio_phone_number = '+13344542591'
+recipient_phone_number = '+919252908070'
+
+# Initialize Twilio client
+client = Client(account_sid, auth_token)
+
+def send_sms_alert():
+    message_body = "Attendance has been marked successfully!"
+    try:
+        message = client.messages.create(
+            body=message_body,
+            from_=twilio_phone_number,
+            to=recipient_phone_number
+        )
+        print(f"SMS sent successfully! SID: {message.sid}")
+    except Exception as e:
+        print(f"SMS sending failed: {str(e)}")
+
+# Call send_sms_alert() when attendance is marked successfully
+# Example:
+# After marking attendance successfully, call send_sms_alert()
+# send_sms_alert()
+
 
 
 # Functions
@@ -329,6 +357,8 @@ def TrackImages():
     csvFile1.close()
     cam.release()
     cv2.destroyAllWindows()
+    send_sms_alert()
+
 
 #############
 
