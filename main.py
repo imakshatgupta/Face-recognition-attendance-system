@@ -288,6 +288,8 @@ def TrackImages():
     j = 0
     recognizer = cv2.face.LBPHFaceRecognizer_create()  # cv2.createLBPHFaceRecognizer()
     exists3 = os.path.isfile("TrainingImageLabel\Trainner.yml")
+    mobile_number = ''  # Initialize the mobile number variable
+
     if exists3:
         recognizer.read("TrainingImageLabel\Trainner.yml")
     else:
@@ -318,6 +320,9 @@ def TrackImages():
                 ts = time.time()
                 date = datetime.datetime.fromtimestamp(ts).strftime('%d-%m-%Y')
                 timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%H:%M:%S')
+                row = df[df['SERIAL NO.'] == serial]
+                if not row.empty:
+                    mobile_number = row['Mobile No.'].values[0]  # Replace 'Mobile Number' with the correct column name
                 aa = df.loc[df['SERIAL NO.'] == serial]['NAME'].values
                 ID = df.loc[df['SERIAL NO.'] == serial]['ID'].values
                 ID = str(ID)
@@ -358,7 +363,7 @@ def TrackImages():
     csvFile1.close()
     cam.release()
     cv2.destroyAllWindows()
-    send_sms_alert()
+    send_sms_alert(recipient_phone_number=mobile_number)
 
 
 #############
