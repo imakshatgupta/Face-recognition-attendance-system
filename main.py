@@ -324,7 +324,6 @@ def TrackImages():
                 if not row.empty:
                     mobile_number = row['Mobile No.'].values[0]  # Replace 'Mobile Number' with the correct column name
                     mobile_number = "+" + str(mobile_number)
-                    print(mobile_number)
                 aa = df.loc[df['SERIAL NO.'] == serial]['NAME'].values
                 ID = df.loc[df['SERIAL NO.'] == serial]['ID'].values
                 ID = str(ID)
