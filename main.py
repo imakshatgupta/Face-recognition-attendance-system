@@ -323,6 +323,8 @@ def TrackImages():
                 row = df[df['SERIAL NO.'] == serial]
                 if not row.empty:
                     mobile_number = row['Mobile No.'].values[0]  # Replace 'Mobile Number' with the correct column name
+                    mobile_number = "+" + str(mobile_number)
+                    print(mobile_number)
                 aa = df.loc[df['SERIAL NO.'] == serial]['NAME'].values
                 ID = df.loc[df['SERIAL NO.'] == serial]['ID'].values
                 ID = str(ID)
@@ -363,7 +365,7 @@ def TrackImages():
     csvFile1.close()
     cam.release()
     cv2.destroyAllWindows()
-    send_sms_alert(recipient_phone_number=mobile_number)
+    send_sms_alert(recipient_phone_number= mobile_number)
 
 
 #############
