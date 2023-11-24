@@ -13,7 +13,7 @@ from twilio.rest import Client
 
 # Twilio credentials
 account_sid = 'AC167cc4162af9a5b957a43c5f22ec43ba'
-auth_token = '1afe76215166a882e739dafa497a5aba'
+auth_token = '360fe374171589faf906e62ade1a681d'
 twilio_phone_number = '+13344542591'
 # recipient_phone_number = '+919252908070'
 
