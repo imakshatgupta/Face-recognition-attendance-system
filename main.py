@@ -207,17 +207,12 @@ def TakeImages():
             faces = detector.detectMultiScale(gray, 1.3, 5)
             for (x, y, w, h) in faces:
                 cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
-                # incrementing sample number
                 sampleNum = sampleNum + 1
-                # saving the captured face in the dataset folder TrainingImage
                 cv2.imwrite("TrainingImage\ " + name + "." + str(serial) + "." + Id + '.' + str(sampleNum) + ".jpg",
                             gray[y:y + h, x:x + w])
-                # display the frame
                 cv2.imshow('Taking Images', img)
-            # wait for 100 miliseconds
             if cv2.waitKey(100) & 0xFF == ord('q'):
                 break
-            # break if the sample number is morethan 100
             elif sampleNum >= 20:
                 break 
         cam.release()
@@ -256,21 +251,13 @@ def TrainImages():
 #########################
 
 def getImagesAndLabels(path):
-    # get the path of all the files in the folder
     imagePaths = [os.path.join(path, f) for f in os.listdir(path)]
-    # create empth face list
     faces = []
-    # create empty ID list
     Ids = []
-    # now looping through all the image paths and loading the Ids and the images
     for imagePath in imagePaths:
-        # loading the image and converting it to gray scale
         pilImage = Image.open(imagePath).convert('L')
-        # Now we are converting the PIL image into numpy array
         imageNp = np.array(pilImage, 'uint8')
-        # getting the Id from the image
         ID = int(os.path.split(imagePath)[-1].split(".")[1])
-        # extract the face from the training image sample
         faces.append(imageNp)
         Ids.append(ID)
     return faces, Ids
@@ -286,9 +273,9 @@ def TrackImages():
     msg = ''
     i = 0
     j = 0
-    recognizer = cv2.face.LBPHFaceRecognizer_create()  # cv2.createLBPHFaceRecognizer()
+    recognizer = cv2.face.LBPHFaceRecognizer_create()  
     exists3 = os.path.isfile("TrainingImageLabel\Trainner.yml")
-    mobile_number = ''  # Initialize the mobile number variable
+    mobile_number = ''  
 
     if exists3:
         recognizer.read("TrainingImageLabel\Trainner.yml")
