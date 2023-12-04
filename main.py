@@ -276,6 +276,8 @@ def TrackImages():
     recognizer = cv2.face.LBPHFaceRecognizer_create()  
     exists3 = os.path.isfile("TrainingImageLabel\Trainner.yml")
     mobile_number = ''  
+    attendance_record = {}
+
 
     if exists3:
         recognizer.read("TrainingImageLabel\Trainner.yml")
@@ -300,35 +302,51 @@ def TrackImages():
         ret, im = cam.read()
         gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale(gray, 1.2, 5)
+        
         for (x, y, w, h) in faces:
             cv2.rectangle(im, (x, y), (x + w, y + h), (225, 0, 0), 2)
             serial, conf = recognizer.predict(gray[y:y + h, x:x + w])
+            
             if conf < 50:
                 ts = time.time()
                 date = datetime.datetime.fromtimestamp(ts).strftime('%d-%m-%Y')
                 timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%H:%M:%S')
                 row = df[df['SERIAL NO.'] == serial]
-                if not row.empty:
-                    mobile_number = row['Mobile No.'].values[0]  
-                    mobile_number = "+" + str(mobile_number)
-                aa = df.loc[df['SERIAL NO.'] == serial]['NAME'].values
-                ID = df.loc[df['SERIAL NO.'] == serial]['ID'].values
-                ID = str(ID)
-                ID = ID[1:-1]
-                bb = str(aa)
-                bb = bb[2:-2]
-                attendance = [str(ID), '', bb, '', str(date), '', str(timeStamp)]
                 
-                # Record attendance immediately upon face detection
-                with open("Attendance\Attendance_" + date + ".csv", 'a+') as csvFile1:
-                    writer = csv.writer(csvFile1)
-                    writer.writerow(attendance)
-                csvFile1.close()
+                if not row.empty:
+                    mobile_number = row['Mobile No.'].values[0]
+                    mobile_number = "+" + str(mobile_number)
+                    
+                    # Check if ID exists in attendance_record and if the last attendance was more than an hour ago
+                    if serial in attendance_record:
+                        last_attendance_time = attendance_record[serial]
+                        time_difference = ts - last_attendance_time
+                        if time_difference < 3600:  # 3600 seconds = 1 hour
+                            continue  # Skip marking attendance if within an hour
+                    
+                    attendance_record[serial] = ts  # Update last attendance time
+                    
+                    aa = df.loc[df['SERIAL NO.'] == serial]['NAME'].values
+                    ID = df.loc[df['SERIAL NO.'] == serial]['ID'].values
+                    ID = str(ID)
+                    ID = ID[1:-1]
+                    bb = str(aa)
+                    bb = bb[2:-2]
+                    attendance = [str(ID), '', bb, '', str(date), '', str(timeStamp)]
+                    
+                    # Record attendance immediately upon face detection
+                    with open("Attendance\Attendance_" + date + ".csv", 'a+') as csvFile1:
+                        writer = csv.writer(csvFile1)
+                        writer.writerow(attendance)
+                    csvFile1.close()
             else:
                 Id = 'Unknown'
                 bb = str(Id)
+            
             cv2.putText(im, str(bb), (x, y + h), font, 1, (255, 255, 255), 2)
+        
         cv2.imshow('Taking Attendance', im)
+        
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
         ts = time.time()
