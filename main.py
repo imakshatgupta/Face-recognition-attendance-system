@@ -283,7 +283,7 @@ def TrackImages():
         mess._show(title='Data Missing', message='Please click on Save Profile to reset data!!')
         return
     harcascadePath = "haarcascade_frontalface_default.xml"
-    faceCascade = cv2.CascadeClassifier(harcascadePath);
+    faceCascade = cv2.CascadeClassifier(harcascadePath)
 
     cam = cv2.VideoCapture(0)
     font = cv2.FONT_HERSHEY_SIMPLEX
@@ -303,7 +303,7 @@ def TrackImages():
         for (x, y, w, h) in faces:
             cv2.rectangle(im, (x, y), (x + w, y + h), (225, 0, 0), 2)
             serial, conf = recognizer.predict(gray[y:y + h, x:x + w])
-            if (conf < 50):
+            if conf < 50:
                 ts = time.time()
                 date = datetime.datetime.fromtimestamp(ts).strftime('%d-%m-%Y')
                 timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%H:%M:%S')
@@ -318,40 +318,45 @@ def TrackImages():
                 bb = str(aa)
                 bb = bb[2:-2]
                 attendance = [str(ID), '', bb, '', str(date), '', str(timeStamp)]
-
+                
+                # Record attendance immediately upon face detection
+                with open("Attendance\Attendance_" + date + ".csv", 'a+') as csvFile1:
+                    writer = csv.writer(csvFile1)
+                    writer.writerow(attendance)
+                csvFile1.close()
             else:
                 Id = 'Unknown'
                 bb = str(Id)
             cv2.putText(im, str(bb), (x, y + h), font, 1, (255, 255, 255), 2)
         cv2.imshow('Taking Attendance', im)
-        if (cv2.waitKey(1) == ord('q')):
+        if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-    ts = time.time()
-    date = datetime.datetime.fromtimestamp(ts).strftime('%d-%m-%Y')
-    exists = os.path.isfile("Attendance\Attendance_" + date + ".csv")
-    if exists:
-        with open("Attendance\Attendance_" + date + ".csv", 'a+') as csvFile1:
-            writer = csv.writer(csvFile1)
-            writer.writerow(attendance)
+        ts = time.time()
+        date = datetime.datetime.fromtimestamp(ts).strftime('%d-%m-%Y')
+        exists = os.path.isfile("Attendance\Attendance_" + date + ".csv")
+        if exists:
+            with open("Attendance\Attendance_" + date + ".csv", 'a+') as csvFile1:
+                writer = csv.writer(csvFile1)
+                writer.writerow(attendance)
+            csvFile1.close()
+        else:
+            with open("Attendance\Attendance_" + date + ".csv", 'a+') as csvFile1:
+                writer = csv.writer(csvFile1)
+                writer.writerow(col_names)
+                writer.writerow(attendance)
+            csvFile1.close()
+        with open("Attendance\Attendance_" + date + ".csv", 'r') as csvFile1:
+            reader1 = csv.reader(csvFile1)
+            for lines in reader1:
+                i = i + 1
+                if (i > 1):
+                    if (i % 2 != 0):
+                        iidd = str(lines[0]) + '   '
+                        tv.insert('', 0, text=iidd, values=(str(lines[2]), str(lines[4]), str(lines[6])))
         csvFile1.close()
-    else:
-        with open("Attendance\Attendance_" + date + ".csv", 'a+') as csvFile1:
-            writer = csv.writer(csvFile1)
-            writer.writerow(col_names)
-            writer.writerow(attendance)
-        csvFile1.close()
-    with open("Attendance\Attendance_" + date + ".csv", 'r') as csvFile1:
-        reader1 = csv.reader(csvFile1)
-        for lines in reader1:
-            i = i + 1
-            if (i > 1):
-                if (i % 2 != 0):
-                    iidd = str(lines[0]) + '   '
-                    tv.insert('', 0, text=iidd, values=(str(lines[2]), str(lines[4]), str(lines[6])))
-    csvFile1.close()
     cam.release()
     cv2.destroyAllWindows()
-    send_sms_alert(recipient_phone_number= mobile_number)
+    send_sms_alert(recipient_phone_number=mobile_number)
 
 
 #############
