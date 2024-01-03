@@ -10,10 +10,11 @@ import pandas as pd
 import datetime
 import time
 from twilio.rest import Client
+import time
 
 # Twilio credentials
 account_sid = 'AC167cc4162af9a5b957a43c5f22ec43ba'
-auth_token = '360fe374171589faf906e62ade1a681d'
+auth_token = '34ff6dab19618963b24d36e4953272fc'
 twilio_phone_number = '+13344542591'
 # recipient_phone_number = '+919252908070'
 
@@ -264,6 +265,10 @@ def getImagesAndLabels(path):
 
 ###################
 
+
+# Define a dictionary to store the last attendance time for each person
+attendance_record = {}
+
 def TrackImages():
     check_haarcascadefile()
     assure_path_exists("Attendance/")
@@ -276,8 +281,6 @@ def TrackImages():
     recognizer = cv2.face.LBPHFaceRecognizer_create()  
     exists3 = os.path.isfile("TrainingImageLabel\Trainner.yml")
     mobile_number = ''  
-    attendance_record = {}
-
 
     if exists3:
         recognizer.read("TrainingImageLabel\Trainner.yml")
@@ -339,6 +342,9 @@ def TrackImages():
                         writer = csv.writer(csvFile1)
                         writer.writerow(attendance)
                     csvFile1.close()
+                    
+                    # Delay for 2 seconds before allowing the next attendance
+                    time.sleep(500)
             else:
                 Id = 'Unknown'
                 bb = str(Id)
